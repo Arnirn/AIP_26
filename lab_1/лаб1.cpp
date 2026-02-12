@@ -17,7 +17,9 @@ int main()
     setlocale(LC_ALL, "Russian");
     string quit;
     CAR cars[777];
+    CAR min_cars[777];
     int cars_number = 0;
+    int mincar = 0;
     do
     {
         cout << "\nВведите марку автомобиля: " << endl;
@@ -62,15 +64,41 @@ int main()
                 {
                     amount_of_sim_years++;
                     mileage_sum = mileage_sum + cars[checking_number].MILEAGE;
-                    if (cars[checking_number].MILEAGE < min_mileage)
+                    if (cars[checking_number].MILEAGE <= min_mileage)
+                    {
                         min_mileage = cars[checking_number].MILEAGE;
+                        min_cars[mincar].BRAND = cars[checking_number].BRAND;
+                        min_cars[mincar].MODEL = cars[checking_number].MODEL;
+                        min_cars[mincar].COLOR = cars[checking_number].COLOR;
+                        min_cars[mincar].MILEAGE = cars[checking_number].MILEAGE;
+                        min_cars[mincar].YEAR = cars[checking_number].YEAR;
+                    }
                     cars[checking_number].YEAR = -77;
                 }
             }
+            mincar++;
             int average_milage = mileage_sum / amount_of_sim_years;
-            cout << "\n\nДля автомобиля " << year << " года выпуска: \n\nМинимальный пробег: " << min_mileage << "\nСредний пробег: " << average_milage << endl << endl;
+            cout << "\n\nДля автомобиля " << year << " года выпуска: \n\nМинимальный пробег: " << min_mileage
+                << "\nСредний пробег: " << average_milage << endl << endl;
         }
     }
+            int needed_year;
+            cout << "Какого года автомобиль вас интересует?\n";
+            while (!(cin >> needed_year))
+            {
+                cout << "Ошибка! Введите целое число: ";
+                cin.clear();
+                cin.ignore(7777777, '\n');
+            }
+            for (int mincar_indx = 0; mincar_indx < mincar; mincar_indx++)
+            {
+                if (min_cars[mincar_indx].YEAR == needed_year)
+                {
+                    cout << "\n\nДанные автомобиля с минимальным пробегом: \n" << "Бренд: " << min_cars[mincar_indx].BRAND
+                        << "\nМодель: " << min_cars[mincar_indx].MODEL << "\nЦвет: " << min_cars[mincar_indx].COLOR << "\nПробег: "
+                        << min_cars[mincar_indx].MILEAGE << endl;
+                }
+            }
     cout << "Для выхода нажмите 'Enter'\n";
     cin.get();
     return 0;
