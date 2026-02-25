@@ -1,7 +1,0 @@
-# Visual Studio файлы
-.vs/
-bin/
-obj/
-*.user
-*.suo
-*.sln.docstates
